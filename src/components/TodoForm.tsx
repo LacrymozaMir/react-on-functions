@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { ITask } from '../types/todoTypes';
+import cl from '../styles/TodoForm.module.css'
+import MyButton from './UI/button/MyButton';
+import MyInput from './UI/input/MyInput';
 
 interface ITodoForm {
     createTask: (newTask: ITask) => void;
@@ -27,19 +30,24 @@ const TodoForm: React.FC<ITodoForm> = ({createTask}) => {
   
     return (
     
-    <form>
+    <form className={cl.form}>
         <label htmlFor="">Create task </label>
-        <input 
-            type="text"
-            value={value}
-            onChange={event => setValue(event.target.value)} 
-            onFocus={() => setError(false)}
-            onBlur={() => setError(false)}
-        />
-        <button onClick={create}>Create</button>
-        {error && 
-            <div>You can't create task with empty title!</div>
-        }
+        <div className={cl.inp__container}>
+            <MyInput 
+                type="text"
+                value={value}
+                onChange={event => setValue(event.target.value)} 
+                onFocus={() => setError(false)}
+                onBlur={() => setError(false)}
+            />
+            <MyButton onClick={create}>
+                Create
+            </MyButton>
+            {error && 
+                <div>You can't create task with empty title!</div>
+            }
+        </div>
+        
     </form>
   )
 }

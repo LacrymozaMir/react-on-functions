@@ -4,15 +4,15 @@ import { ITask } from '../types/todoTypes';
 import { completeAllTodoApi, completeTodoApi, createTodoApi, deleteOneTodoApi, deleteSelectedTodosApi, fetchTodosApi, updateTask } from '../api/todoApi';
 import TodoForm from './TodoForm';
 import TodoPanel from './TodoPanel';
+import cl from '../styles/Todo.module.css'
 
-const Todo = () => {
+const Todo: React.FC = () => {
   
   const [tasks, setTasks] = useState<ITask[]>([]);
 
   useEffect(() => {
     fetchTodos();
-    console.log('update!');
-
+    
   }, [])
 
   const fetchTodos = async () => {
@@ -72,7 +72,7 @@ const Todo = () => {
 
   
   return (
-    <div>
+    <section className={cl.container}>
         <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
         <TodoList 
@@ -81,7 +81,7 @@ const Todo = () => {
           deleteTask={deleteTask}
           editTask={editTask}
         />
-    </div>
+    </section>
   )
 }
 
