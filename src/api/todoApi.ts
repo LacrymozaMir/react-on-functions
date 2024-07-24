@@ -1,16 +1,23 @@
 import { ITask } from "../types/todoTypes";
 
-export async function fetchTodos(): Promise<ITask[] | null> {
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos?userId=1');
-        return await response.json();
 
-    } catch {
-        return null;
+export async function http<T>(req: string): Promise<T> {
+    const response = await fetch(req);
+    const body = await response.json();
+    return body;
+}
+
+export async function fetchTodosApi() {
+    try {
+        const response = await http<ITask[]>('https://jsonplaceholder.typicode.com/todos?userId=1');
+        return response;
+    } catch(e) {
+        console.log(e);
+        return [];
     }
 }
 
-export function deleteOneTodo(id: number): void {
+export function deleteOneTodoApi(id: number): void {
     try {
         const response = fetch('https://jsonplaceholder.typicode.com/todos/1', {
             method: 'DELETE',
@@ -21,7 +28,7 @@ export function deleteOneTodo(id: number): void {
     }
 }
 
-export function createTodo(task: ITask): void {
+export function createTodoApi(task: ITask): void {
     try {
         const response = fetch('https://jsonplaceholder.typicode.com/todos', {
             method: 'POST',
@@ -40,13 +47,12 @@ export function createTodo(task: ITask): void {
     }
 }
 
-export function updateTodo(task: ITask): void {
+export function completeTodoApi(id: number, completed: boolean): void {
     try {
-        const response = fetch('https://jsonplaceholder.typicode.com/todos' + task.id, {
+        const response = fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
             method: 'PUT',
             body: JSON.stringify({
-              title: task.title,
-              completed: task.completed,
+              completed: !completed,
             }),
             headers: {
               'Content-type': 'application/json; charset=UTF-8',
@@ -58,7 +64,7 @@ export function updateTodo(task: ITask): void {
    }
 }
 
-export function deleteSelectedTodos(): void {
+export function deleteSelectedTodosApi(): void {
     try {
         const response = fetch('https://jsonplaceholder.typicode.com/todos/deleteAll', {
             method: 'DELETE',
@@ -69,7 +75,7 @@ export function deleteSelectedTodos(): void {
     }
 }
 
-export function completeAllTodo(): void {
+export function completeAllTodoApi(): void {
     try {
         const response = fetch('https://jsonplaceholder.typicode.com/todos/completeAll', {
             method: 'PUT',
