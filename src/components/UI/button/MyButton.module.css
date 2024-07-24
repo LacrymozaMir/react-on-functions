@@ -4,6 +4,7 @@
     color: #800000;
     border: 2px solid #800000;
     font-size: 20px;
+    margin: 4px;
 
     transition: 0.3s ease;
 }

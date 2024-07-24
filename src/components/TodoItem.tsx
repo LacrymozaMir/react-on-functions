@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ITask } from '../types/todoTypes'
+import cl from '../styles/TodoItem.module.css'
 
 interface ITodoItem {
     task: ITask;
@@ -31,7 +32,7 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
 
 
   return (
-    <article>
+    <article className={cl.container}>
         {isEditing 
             ? <input 
                 type="text" 
