@@ -3,6 +3,7 @@ import TodoList from './TodoList';
 import { ITask } from '../types/todoTypes';
 import { completeTodoApi, createTodoApi, fetchTodosApi } from '../api/todoApi';
 import TodoForm from './TodoForm';
+import TodoPanel from './TodoPanel';
 
 const Todo = () => {
   
@@ -42,13 +43,17 @@ const Todo = () => {
       : task
     );
 
-
     setTasks(completedTasks);
+  }
+
+  const deleteAllTasks = (): void => {
+    setTasks(tasks.filter(t => t.completed == false));
   }
 
   
   return (
     <div>
+        <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
         <TodoList tasks={tasks} completeTask={completeTask}/>
     </div>

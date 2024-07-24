@@ -5,13 +5,15 @@ interface ITodoPanel {
 }
 
 
-const TodoPanel = () => {
+const TodoPanel: React.FC<ITodoPanel> = ({completeAll, deleteAll}) => {
   
 
   
     return (
     <section>
-    
+        <button onClick={completeAll}>Complete all</button>
+        <button onClick={deleteAll}>Delete all completed</button>
+
     </section>
   )
 }
