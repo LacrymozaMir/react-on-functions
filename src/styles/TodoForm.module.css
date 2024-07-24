@@ -1,7 +1,17 @@
 .form {
     display: flex;
-    border: 1px solid black;
     margin: 16px 0;
     font-family: 'algerian';
+    flex-direction: column;
+    padding: 8px;
+    background: #FFFACD;
+    width: 100%;
+}
+
+.header {
+    font-size: 32px;
+}  
+
+.inp__container {
 
 }

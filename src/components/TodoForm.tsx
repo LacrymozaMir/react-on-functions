@@ -31,7 +31,7 @@ const TodoForm: React.FC<ITodoForm> = ({createTask}) => {
     return (
     
     <form className={cl.form}>
-        <label htmlFor="">Create task </label>
+        <label className={cl.header}>Create task</label>
         <div className={cl.inp__container}>
             <MyInput 
                 type="text"
