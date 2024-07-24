@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TodoList from './TodoList';
 import { ITask } from '../types/todoTypes';
-import { completeTodoApi, createTodoApi, fetchTodosApi } from '../api/todoApi';
+import { completeAllTodoApi, completeTodoApi, createTodoApi, deleteOneTodoApi, deleteSelectedTodosApi, fetchTodosApi, updateTask } from '../api/todoApi';
 import TodoForm from './TodoForm';
 import TodoPanel from './TodoPanel';
 
@@ -44,10 +44,30 @@ const Todo = () => {
     );
 
     setTasks(completedTasks);
+    completeAllTodoApi();
   }
 
   const deleteAllTasks = (): void => {
     setTasks(tasks.filter(t => t.completed == false));
+    deleteSelectedTodosApi();
+  }
+
+  const deleteTask = (id: number):void => {
+    setTasks(tasks.filter(t => t.id !== id));
+
+    deleteOneTodoApi(id);
+  }
+
+  const editTask = (id: number, value: string): void => {
+    if (value.length) {
+      setTasks(tasks.map(task => 
+        task.id === id
+        ? {...task, title: value}
+        : task
+      ));
+  
+      updateTask(id, value);
+    }
   }
 
   
@@ -55,7 +75,12 @@ const Todo = () => {
     <div>
         <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
-        <TodoList tasks={tasks} completeTask={completeTask}/>
+        <TodoList 
+          tasks={tasks} 
+          completeTask={completeTask} 
+          deleteTask={deleteTask}
+          editTask={editTask}
+        />
     </div>
   )
 }

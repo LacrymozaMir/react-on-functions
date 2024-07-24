@@ -91,3 +91,20 @@ export function completeAllTodoApi(): void {
         console.log(error);
     }
 }
+
+export function updateTask(id: number, value: string): void {
+    try {
+        const response = fetch('https://jsonplaceholder.typicode.com/todos/' + id, {
+            method: 'PUT',
+            body: JSON.stringify({
+              title: value,
+            }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+          })
+    } catch (e) {
+
+    }
+}
+
