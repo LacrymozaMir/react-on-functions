@@ -103,6 +103,8 @@ const Todo: React.FC = () => {
         navs
         pages
         auto
+        delay={2}
+        stopMouseHover
       />
         {/* <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>

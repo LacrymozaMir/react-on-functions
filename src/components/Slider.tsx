@@ -101,24 +101,25 @@ const Slider: React.FC<ISliderProps> = ({
     pages = false,
     auto = false,
     stopMouseHover = false,
-    delay = 2,
+    delay = 5,
 }) => {
 
     const [currentImg, setCurrentImg] = useState<number>(0);
     const [sliderPages, setSliderPages] = useState<number>(0);
     const trueDelay = delay * 1000;
+    const [mouseActive, setMouseActive] = useState<boolean>(false);
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
-        if (auto) {
+        if (auto && !mouseActive) {
             interval = setInterval(nextImg, trueDelay);
         }
         return () => {
             if (interval) clearInterval(interval);
         }
 
-    }, [auto, trueDelay]);
+    }, [auto, trueDelay, mouseActive]);
 
     const nextImg = (): void => {
         setCurrentImg(prev => {
@@ -141,7 +142,10 @@ const Slider: React.FC<ISliderProps> = ({
     }
 
   return (
-    <MySlider>
+    <MySlider 
+    onMouseEnter={stopMouseHover ? () => setMouseActive(true) : () => {}} 
+    onMouseLeave={stopMouseHover ? () => setMouseActive(false) :  () => {}}
+    >
       <SliderImg src={slides[currentImg].img} alt="img" />
       <SliderText>{slides[currentImg].text}</SliderText>
       {navs &&
