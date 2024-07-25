@@ -101,30 +101,43 @@ const Slider: React.FC<ISliderProps> = ({
     pages = false,
     auto = false,
     stopMouseHover = false,
-    delay = 5,
+    delay = 2,
 }) => {
 
     const [currentImg, setCurrentImg] = useState<number>(0);
     const [sliderPages, setSliderPages] = useState<number>(0);
+    const trueDelay = delay * 1000;
 
     useEffect(() => {
+        let interval: NodeJS.Timeout;
 
-    }, []);
+        if (auto) {
+            interval = setInterval(nextImg, trueDelay);
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        }
+
+    }, [auto, trueDelay]);
 
     const nextImg = (): void => {
-        if (currentImg < slides.length - 1){
-            setCurrentImg(currentImg + 1);
-        } else {
-            if (loop) setCurrentImg(0)
-        }
-    }
+        setCurrentImg(prev => {
+            if (prev < slides.length - 1) {
+                return prev + 1;
+            } else {
+                return loop ? 0 : prev; 
+            }
+        });
+    };
 
     const prevImg = (): void => {
-        if (currentImg > 0){
-            setCurrentImg(currentImg - 1);
-        } else {
-            if (loop) setCurrentImg(slides.length - 1);
-        }
+        setCurrentImg(prev => {
+            if (prev > 0) {
+                return prev - 1;
+            } else {
+                return loop ? slides.length - 1 : prev;
+            }
+        })
     }
 
   return (

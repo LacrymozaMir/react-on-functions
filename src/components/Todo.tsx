@@ -102,6 +102,7 @@ const Todo: React.FC = () => {
         loop
         navs
         pages
+        auto
       />
         {/* <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
