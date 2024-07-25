@@ -5,15 +5,37 @@ import { completeAllTodoApi, completeTodoApi, createTodoApi, deleteOneTodoApi, d
 import TodoForm from './TodoForm';
 import TodoPanel from './TodoPanel';
 import { ComponentContainer } from '../styles/components';
+import Slider, { ISlides } from './Slider';
+import { getImgsApi } from '../api/sliderApi';
 
 const Todo: React.FC = () => {
   
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [slides, setSlides] = useState<ISlides[]>([
+    {
+      "img": "https://via.placeholder.com/600/b0f7cc",
+      "text": "text 1"
+  },
+  {
+      "img": "https://via.placeholder.com/600/771796",
+      "text": "text 2"
+  },
+  {
+      "img": "https://via.placeholder.com/600/24f355",
+      "text": "text 3"
+  }
+  ]);
 
   useEffect(() => {
     fetchTodos();
+    // fetchImgs();
     
   }, [])
+
+  // const fetchImgs = async () => {
+  //   setSlides(await getImgsApi());
+  // }
+
 
   const fetchTodos = async () => {
     setTasks(await fetchTodosApi());
@@ -70,17 +92,23 @@ const Todo: React.FC = () => {
     }
   }
 
+
+
   
   return (
     <ComponentContainer>
-        <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
+      <Slider 
+        slides={slides}
+        loop
+      />
+        {/* <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
         <TodoList 
           tasks={tasks} 
           completeTask={completeTask} 
           deleteTask={deleteTask}
           editTask={editTask}
-        />
+        /> */}
     </ComponentContainer>
   )
 }
