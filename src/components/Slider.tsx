@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import btn from '../assets/img/right (1).png'
 
@@ -72,8 +72,25 @@ const SliderPages = styled.div`
     left: 0;
 `
 
-const SliderIcons = styled.img`
-    
+const SliderIconContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const SliderIcon = styled.button<{active?: boolean}>`
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 4px;
+    border: none;
+    background-color: ${props => props.active ? '#4e4d4d' : 'white'};
+
+    transition: 0.3s ease;
+
+    &:hover{
+        background-color: #4e4d4d;
+    }
 `
 
 
@@ -88,6 +105,11 @@ const Slider: React.FC<ISliderProps> = ({
 }) => {
 
     const [currentImg, setCurrentImg] = useState<number>(0);
+    const [sliderPages, setSliderPages] = useState<number>(0);
+
+    useEffect(() => {
+
+    }, []);
 
     const nextImg = (): void => {
         if (currentImg < slides.length - 1){
@@ -116,13 +138,22 @@ const Slider: React.FC<ISliderProps> = ({
       </>
       }
       {pages &&
-        <SliderPages>{currentImg + 1} / {slides.length}</SliderPages>
+        <>
+            <SliderPages>{currentImg + 1} / {slides.length}</SliderPages>
+            <SliderIconContainer>
+            { slides.map((slide, index) => 
+                <SliderIcon 
+                    key={slide.img} 
+                    onClick={() => setCurrentImg(index)}
+                    active={currentImg == index}
+                />
+            )
+                    
+            }
+            </SliderIconContainer>
+        </>
       }
-      <div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+     
     </MySlider>
   )
 }
