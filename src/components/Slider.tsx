@@ -63,9 +63,17 @@ const SliderButtonPrev = styled.button`
     ${btns}
 `
 
+const SliderPages = styled.div`
+    font-size: 16px;
+    margin: 8px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+`
+
 const SliderIcons = styled.img`
     
-
 `
 
 
@@ -101,8 +109,20 @@ const Slider: React.FC<ISliderProps> = ({
     <MySlider>
       <SliderImg src={slides[currentImg].img} alt="img" />
       <SliderText>{slides[currentImg].text}</SliderText>
-      <SliderButtonNext onClick={nextImg}><img src={btn} alt='next'/></SliderButtonNext>
-      <SliderButtonPrev onClick={prevImg}><img src={btn} alt='prev'/></SliderButtonPrev>
+      {navs &&
+      <>
+        <SliderButtonNext onClick={nextImg}><img src={btn} alt='next'/></SliderButtonNext>
+        <SliderButtonPrev onClick={prevImg}><img src={btn} alt='prev'/></SliderButtonPrev>
+      </>
+      }
+      {pages &&
+        <SliderPages>{currentImg + 1} / {slides.length}</SliderPages>
+      }
+      <div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </MySlider>
   )
 }

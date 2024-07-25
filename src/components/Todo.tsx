@@ -100,6 +100,8 @@ const Todo: React.FC = () => {
       <Slider 
         slides={slides}
         loop
+        navs
+        pages
       />
         {/* <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
