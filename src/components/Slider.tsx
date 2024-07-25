@@ -22,11 +22,25 @@ interface ISliderProps {
 
 const MySlider = styled.div`
     position: relative;
+    overflow: hidden;
 `
 
-const SliderImg = styled.img`
+const SliderContent = styled.div<{isVisible: boolean}>`
+    width: 100%; 
+    height: 100%; 
+    transition: 0.3s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; 
+    opacity: ${props => (props.isVisible ? 1 : 0)}; 
+    transform: translateX(${props => (props.isVisible ? '0' : '20px')}); 
+`
+
+const Slide = styled.div`
     width: 600px;
     height: 600px;
+    background-position: center;
+
+    transition: 0.5s ease-in-out;
+
 `
 
 const SliderText = styled.span`
@@ -146,15 +160,18 @@ const Slider: React.FC<ISliderProps> = ({
     onMouseEnter={stopMouseHover ? () => setMouseActive(true) : () => {}} 
     onMouseLeave={stopMouseHover ? () => setMouseActive(false) :  () => {}}
     >
-      <SliderImg src={slides[currentImg].img} alt="img" />
-      <SliderText>{slides[currentImg].text}</SliderText>
-      {navs &&
-      <>
+        {/* src={slides[currentImg].img} */}
+        <SliderContent isVisible={true}>
+            <Slide style={{ backgroundImage: `url(${slides[currentImg].img})`}}/>
+            <SliderText>{slides[currentImg].text}</SliderText>
+        </SliderContent>
+        {navs &&
+        <>
         <SliderButtonNext onClick={nextImg}><img src={btn} alt='next'/></SliderButtonNext>
         <SliderButtonPrev onClick={prevImg}><img src={btn} alt='prev'/></SliderButtonPrev>
-      </>
-      }
-      {pages &&
+        </>
+        }
+        {pages &&
         <>
             <SliderPages>{currentImg + 1} / {slides.length}</SliderPages>
             <SliderIconContainer>
@@ -169,7 +186,7 @@ const Slider: React.FC<ISliderProps> = ({
             }
             </SliderIconContainer>
         </>
-      }
+        }
      
     </MySlider>
   )

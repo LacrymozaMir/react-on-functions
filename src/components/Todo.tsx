@@ -102,7 +102,7 @@ const Todo: React.FC = () => {
         loop
         navs
         pages
-        auto
+        // auto
         delay={2}
         stopMouseHover
       />
