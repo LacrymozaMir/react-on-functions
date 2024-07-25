@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { ITask } from '../types/todoTypes';
-import cl from '../styles/TodoForm.module.css'
 import MyButton from './UI/button/MyButton';
 import MyInput from './UI/input/MyInput';
 
@@ -30,9 +29,9 @@ const TodoForm: React.FC<ITodoForm> = ({createTask}) => {
   
     return (
     
-    <form className={cl.form}>
-        <label className={cl.header}>Create task</label>
-        <div className={cl.inp__container}>
+    <form>
+        <label>Create task</label>
+        <div>
             <MyInput 
                 type="text"
                 value={value}

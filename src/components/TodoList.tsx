@@ -1,6 +1,7 @@
 import React from 'react'
 import { ITask } from '../types/todoTypes'
 import TodoItem from './TodoItem';
+import { Container, HeaderText } from '../styles/components';
 
 interface ITodoList {
     tasks: ITask[];
@@ -11,8 +12,8 @@ interface ITodoList {
 
 const TodoList: React.FC<ITodoList> = ({tasks, completeTask, deleteTask, editTask}) => {
   return (
-    <section>
-        <h2>Tasks list</h2>
+    <Container>
+        <HeaderText margin='0 0 16px 0' padding='0'>Tasks list</HeaderText>
         {tasks?.map(task => 
             <TodoItem 
                 key={task.id} 
@@ -22,7 +23,7 @@ const TodoList: React.FC<ITodoList> = ({tasks, completeTask, deleteTask, editTas
                 editTask={editTask}
             />
         )}
-    </section>
+    </Container>
   )
 }
 

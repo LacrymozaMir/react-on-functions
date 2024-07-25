@@ -1,14 +1,14 @@
-import React from 'react'
-import Todo from './components/Todo'
-import './styles/app.css'
+import React from 'react';
+import Todo from './components/Todo';
+import GlobalStyles from './styles/global';
+
 
 const App = () => {
   return (
-    <main className='app'>
-      <div className='container'>
-        <Todo/>
-      </div>
-    </main>
+    <>
+      <Todo/>
+      <GlobalStyles />
+    </>
   )
 }
 

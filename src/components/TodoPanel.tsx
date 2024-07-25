@@ -1,6 +1,6 @@
 import React from 'react'
-import cl from '../styles/TodoPanel.module.css'
 import MyButton from './UI/button/MyButton';
+import { Container, HeaderText } from '../styles/components';
 
 
 interface ITodoPanel {
@@ -12,11 +12,11 @@ interface ITodoPanel {
 const TodoPanel: React.FC<ITodoPanel> = ({completeAll, deleteAll}) => {
   
     return (
-    <section className={cl.container}>
-        <h2 className={cl.header}>Panel</h2>
+    <Container>
+        <HeaderText>Panel</HeaderText>
         <MyButton onClick={completeAll}>Complete all</MyButton>
         <MyButton onClick={deleteAll}>Delete all completed</MyButton>
-    </section>
+    </Container>
   )
 }
 

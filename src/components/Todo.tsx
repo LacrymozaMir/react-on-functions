@@ -4,7 +4,7 @@ import { ITask } from '../types/todoTypes';
 import { completeAllTodoApi, completeTodoApi, createTodoApi, deleteOneTodoApi, deleteSelectedTodosApi, fetchTodosApi, updateTask } from '../api/todoApi';
 import TodoForm from './TodoForm';
 import TodoPanel from './TodoPanel';
-import cl from '../styles/Todo.module.css'
+import { ComponentContainer } from '../styles/components';
 
 const Todo: React.FC = () => {
   
@@ -72,7 +72,7 @@ const Todo: React.FC = () => {
 
   
   return (
-    <section className={cl.container}>
+    <ComponentContainer>
         <TodoPanel completeAll={CompleteAllTasks} deleteAll={deleteAllTasks}/>
         <TodoForm createTask={createTask}/>
         <TodoList 
@@ -81,7 +81,7 @@ const Todo: React.FC = () => {
           deleteTask={deleteTask}
           editTask={editTask}
         />
-    </section>
+    </ComponentContainer>
   )
 }
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { ITask } from '../types/todoTypes'
-import cl from '../styles/TodoItem.module.css'
 import MyInput from './UI/input/MyInput';
 import MyButton from './UI/button/MyButton';
+import { Card, Text } from '../styles/components';
 
 interface ITodoItem {
     task: ITask;
@@ -30,11 +30,8 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
         setIsEditing(false);
     }
 
-
-
-
   return (
-    <article className={cl.container}>
+    <Card margin='0 0 12px 0' padding='0'>
         {isEditing 
             ? <MyInput 
                 type="text" 
@@ -42,16 +39,15 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
                 onChange={event=> setValue(event.target.value)}
                 // onBlur={() => setIsEditing(false)}
             />
-            : <h3 
+            : <Text    
                 style={{textDecoration: task.completed ? 'line-through' : 'none',
                     color: task.completed ? 'green' : 'black',
                     cursor: 'pointer',
                 }} 
-                className={cl.title}
                 onClick={complete}
                 >
                     {task?.id}. {task?.title}
-                </h3>
+                </Text>
         }
         
         <MyButton onClick={() => deleteTask(task.id)}>delete</MyButton>
@@ -59,7 +55,7 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
             ? <MyButton onClick={endEditing}>ok</MyButton>
             : <MyButton onClick={startEditing}>edit</MyButton>
         }
-    </article>
+    </Card>
   )
 }
 
