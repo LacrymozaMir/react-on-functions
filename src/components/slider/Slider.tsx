@@ -46,7 +46,7 @@ const Slider: React.FC<Slider> = ({
         let interval: NodeJS.Timeout;
 
         if (auto && !mouseActive) {
-            interval = setInterval(nextImg, delayInMs);
+            interval = setInterval(() => changeImg(EAnimDirec.right), delayInMs);
         }
         return () => {
             if (interval) clearInterval(interval);
@@ -54,39 +54,33 @@ const Slider: React.FC<Slider> = ({
 
     }, [auto, delayInMs, mouseActive, isAnim]);
 
-    const nextImg = () => {
+    const changeImg = (direction: EAnimDirec): void => {
         setIndexNextImg(prev => {
-            if (prev < slides.length - 1) {
-                return prev + 1;
-            } else {
-                return loop ? 0 : prev; 
-            }
-        });
-
-        if (!loop && indexCurrentImg < slides.length - 1) { 
-            mounting(EAnimDirec.right); 
+            let newIndex = prev;
     
-        } else if (loop) { 
-            mounting(EAnimDirec.right); 
-        } 
-    }
-
-    const prevImg = () => {
-        setIndexNextImg(prev => {
-            if (prev > 0) {
-                return prev - 1;
-            } else {
-                return loop ? slides.length - 1 : prev;
+            if (direction === EAnimDirec.right) {
+                newIndex = prev < slides.length - 1 ? prev + 1 : (loop ? 0 : prev);
+            } else if (direction === EAnimDirec.left) {
+                newIndex = prev > 0 ? prev - 1 : (loop ? slides.length - 1 : prev);
             }
+    
+            return newIndex;
         });
-
-        if (!loop && indexCurrentImg > 0) { 
-            mounting(EAnimDirec.left); 
- 
-        } else if (loop) { 
-            mounting(EAnimDirec.left); 
-        } 
-    }
+    
+        if (direction === EAnimDirec.right) {
+            if (!loop && indexCurrentImg < slides.length - 1) {
+                mounting(EAnimDirec.right);
+            } else if (loop) {
+                mounting(EAnimDirec.right);
+            }
+        } else if (direction === EAnimDirec.left) {
+            if (!loop && indexCurrentImg > 0) {
+                mounting(EAnimDirec.left);
+            } else if (loop) {
+                mounting(EAnimDirec.left);
+            }
+        }
+    };
 
     const mounting = (animDirec: EAnimDirec) => {
         setIsMount(true);
@@ -139,8 +133,8 @@ const Slider: React.FC<Slider> = ({
             </SlidesContainer>
             {navs &&
             <>
-                <RightButton onClick={nextImg} disabled={isAnim}>&gt;</RightButton>
-                <LeftButton onClick={prevImg} disabled={isAnim}>&lt;</LeftButton>
+                <RightButton onClick={() => changeImg(EAnimDirec.right)} disabled={isAnim}>&gt;</RightButton>
+                <LeftButton onClick={() => changeImg(EAnimDirec.left)} disabled={isAnim}>&lt;</LeftButton>
             </>
             }
             {pages &&

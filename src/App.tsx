@@ -23,7 +23,7 @@ const App = () => {
     <>
       <Slider 
         slides={slides}
-        loop
+        // loop
         navs
         pages
         auto
