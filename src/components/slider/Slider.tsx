@@ -48,6 +48,7 @@ const Slider: React.FC<Slider> = ({
         if (auto && !mouseActive) {
             interval = setInterval(() => changeImg(EAnimDirec.right), delayInMs);
         }
+
         return () => {
             if (interval) clearInterval(interval);
         }

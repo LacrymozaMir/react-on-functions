@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ITask } from '../types/todoTypes'
 import MyInput from './UI/input/MyInput';
 import MyButton from './UI/button/MyButton';
 import { Card, Text } from '../styles/components';
+import { ToDoContext } from './ToDoController';
 
 interface ITodoItem {
     task: ITask;
-    completeTask: (id: number, completed: boolean) => void;
-    deleteTask: (id: number) => void;
-    editTask: (id: number, value: string) => void;
+    // completeTask: (id: number, completed: boolean) => void;
+    // deleteTask: (id: number) => void;
+    // editTask: (id: number, value: string) => void;
 }
 
-const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask}) => {
+const TodoItem: React.FC<ITodoItem> = ({task}) => {
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [value, setValue] = useState<string>('');
 
+    const todoContext = useContext(ToDoContext);
+
     const complete = (): void => {
-        completeTask(task.id, task.completed);
+        todoContext?.completeTask(task.id, task.completed);
     }
 
     const startEditing = (): void => {
@@ -26,7 +29,7 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
     }
 
     const endEditing = ():void => {
-        editTask(task.id, value);
+        todoContext?.editTask(task.id, value);
         setIsEditing(false);
     }
 
@@ -44,13 +47,13 @@ const TodoItem: React.FC<ITodoItem> = ({task, completeTask, deleteTask, editTask
                     color: task.completed ? 'green' : 'black',
                     cursor: 'pointer',
                 }} 
-                onClick={complete}
+                onClick={() => complete()}
                 >
                     {task?.id}. {task?.title}
                 </Text>
         }
         
-        <MyButton onClick={() => deleteTask(task.id)}>delete</MyButton>
+        <MyButton onClick={() => todoContext?.deleteOneTask(task.id)}>delete</MyButton>
         {isEditing
             ? <MyButton onClick={endEditing}>ok</MyButton>
             : <MyButton onClick={startEditing}>edit</MyButton>

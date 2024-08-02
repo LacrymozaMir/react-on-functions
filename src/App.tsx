@@ -21,15 +21,15 @@ const App = () => {
 
   return (
     <>
-      <Slider 
+      {/* <Slider 
         slides={slides}
-        // loop
+        loop
         navs
         pages
         auto
         delay={2}
         stopMouseHover
-      />
+      /> */}
       <Todo/>
       <GlobalStyles />
     </>

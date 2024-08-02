@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import MyButton from './UI/button/MyButton';
 import { Container, HeaderText } from '../styles/components';
+import { ToDoContext } from './ToDoController';
 
 
-interface ITodoPanel {
-    completeAll: () => void;
-    deleteAll: () => void;
-}
+// interface ITodoPanel {
+//     completeAll: () => void;
+//     deleteAll: () => void;
+// }
 
 
-const TodoPanel: React.FC<ITodoPanel> = ({completeAll, deleteAll}) => {
+const TodoPanel: React.FC = () => {
+
+    const todoContext = useContext(ToDoContext);
   
     return (
-    <Container>
-        <HeaderText>Panel</HeaderText>
-        <MyButton onClick={completeAll}>Complete all</MyButton>
-        <MyButton onClick={deleteAll}>Delete all completed</MyButton>
-    </Container>
+        <Container>
+            <HeaderText>Panel</HeaderText>
+            <MyButton onClick={todoContext?.completeAllTasks}>Complete all</MyButton>
+            <MyButton onClick={todoContext?.deleteAllTasks}>Delete all completed</MyButton>
+        </Container>
+
   )
 }
 
